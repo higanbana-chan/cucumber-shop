@@ -1,15 +1,23 @@
 package ku.shop;
 
 public class OrderItem {
+    private Product product;
     private int quantity;
-    private Product prod;
 
-    public OrderItem(Product prod, int quantity) {
-        this.prod = prod;
+    public OrderItem(Product product, int quantity) {
+        this.product = product;
         this.quantity = quantity;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
     public double getSubtotal() {
-        return prod.getPrice() * quantity;
+        return product.getPrice() * quantity;
     }
 }

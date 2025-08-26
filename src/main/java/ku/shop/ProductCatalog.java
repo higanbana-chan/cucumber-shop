@@ -1,21 +1,30 @@
 package ku.shop;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductCatalog {
-
-    private Map<String, Product> products;
+    private List<Product> products;
 
     public ProductCatalog() {
-        products = new HashMap<>();
+        this.products = new ArrayList<>();
     }
 
     public void addProduct(String name, double price, int stock) {
-        products.put(name, new Product(name, price, stock));
+        Product product = new Product(name, price, stock);
+        products.add(product);
     }
 
     public Product getProduct(String name) {
-        return products.get(name);
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        throw new IllegalArgumentException("Product not found: " + name);
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 }

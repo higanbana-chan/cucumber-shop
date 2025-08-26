@@ -13,15 +13,27 @@ public class Order {
         this.date = LocalDateTime.now();
     }
 
-    public void addItem(Product prod, int quantity) {
-        items.add(new OrderItem(prod, quantity));
-        prod.cutStock(quantity);
+    public void addItem(Product product, int quantity) {
+        if (product.getStock() < quantity) {
+            throw new IllegalArgumentException("Not enough stock for product: " + product.getName());
+        }
+        product.cutStock(quantity);
+        items.add(new OrderItem(product, quantity));
     }
 
     public double getTotal() {
         double total = 0;
-        for (OrderItem item : items)
+        for (OrderItem item : items) {
             total += item.getSubtotal();
+        }
         return total;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
     }
 }
